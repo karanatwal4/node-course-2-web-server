@@ -6,6 +6,7 @@ const port = process.env.PORT || 3000;
 
 var app= express();
 
+//Partials
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine','hbs');
 
@@ -17,6 +18,7 @@ hbs.registerHelper('screamIt', (text) => {
   return text.toUpperCase();
 });
 
+//Middleware
 app.use((req, res, next) => {
   var now = new Date().toString();
   var log = `${now}: ${req.method} ${req.url}`;
@@ -34,12 +36,21 @@ app.use((req, res, next) => {
 //   res.render('maintainance.hbs');
 // });
 
+//request
 app.get('/about', (req, res) => {
   res.render('about.hbs', {
     pageTitle: 'About Page'
   })
 });
 
+app.get('/portfolio', (req, res) => {
+  res.render('portfolio.hbs', {
+    pageTitle: 'Portfolio Page',
+    welcomeMessage: 'This is the portfolio page'
+  })
+});
+
+//request
 app.get('/', (req, res) => {
   res.render('home.hbs', {
     pageTitle: 'Home Page',
@@ -47,6 +58,7 @@ app.get('/', (req, res) => {
   });
 });
 
+//port binding
 app.listen(port, () => {
   console.log(`server is up on port: ${port}`);
 });
